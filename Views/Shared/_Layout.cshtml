@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Autho. &amp; Authe. - @ViewBag.Title</title>
+    <link rel="stylesheet" asp-href-include="/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" asp-href-include="/styles/custom.css" />
+
+</head>
+<body>
+    <div class="container-fluid bg-dark shadow sticky-top">
+        <div class="container">
+            <div class="navbar navbar-expand-md justify-content-between">
+                <a asp-controller="Home" asp-action="Index" class="text-light"><h4 class="navbar-brand">ASP.NET Core Identity</h4></a>
+
+                <div>
+                    <button class="navbar-toggler" data-toggle="collapse" data-target="#MyNavBar">
+                        <span>
+                            <img src="~/images/icons8-menu-30.png" />
+                        </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="MyNavBar">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Home" asp-action="Code">Code</a>
+                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-controller="Account" asp-action="Admins">Admins</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Home" asp-action="About">About</a>
+                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-danger" asp-controller="Account" asp-action="Logout">Logout</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-success" asp-controller="Account" asp-action="Login">Login</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @RenderBody()
+
+    <script asp-src-include="/lib/jquery/jquery.slim.min.js"></script>
+    <script asp-src-include="/lib/popper.js/popper.min.js"></script>
+    <script asp-src-include="/lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

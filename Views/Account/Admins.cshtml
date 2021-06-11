@@ -1,0 +1,52 @@
+﻿@model UsersViewModel
+
+@{
+    ViewData["Title"] = "Admins";
+}
+
+<div class="container">
+    <div class="page-header">
+        <h2>Administrators</h2>
+    </div>
+    @if (ViewData["AdminAddedMessage"] != null)
+    {
+        <div class="alert alert-info">
+            @ViewData["AdminAddedMessage"]
+            <button class="close text-danger" data-dismiss="alert">&times;</button>
+        </div>
+    }
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Mange</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (IdentityUser user in Model.Users)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.PhoneNumber</td>
+                    <td>@user.Email</td>
+                    <td>
+                        @if (user.UserName != "AdminSammy")
+                        {
+                            <a class="btn btn-sm btn-danger text-light" asp-controller="Account" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                        }
+                        <a class="btn btn-sm btn-primary text-light">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-6">
+            <a class="btn btn-danger w-50" asp-controller="Account" asp-action="Add">Add Admin</a>
+        </div>
+        <div class="col-6 text-right" paging-info="@Model.PagingInfo"> </div>
+    </div>
+</div>
